@@ -30,7 +30,9 @@ const Footer = () => {
             <h3 className="text-white font-semibold mb-4">Contacto</h3>
             <ul className="space-y-2">
               <li>info@nextcode.com</li>
-              <li>+1 (555) 123-4567</li>
+              <li>+58 (412) 6504208</li>
+              <li>+58 (412) 8876344</li>
+              <li>+1  (555) 1234567</li>
               <li>Valencia, Venezuela</li>
             </ul>
           </div>

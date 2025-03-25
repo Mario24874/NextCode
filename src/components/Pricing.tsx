@@ -3,7 +3,7 @@ import { Check } from 'lucide-react';
 const plans = [
   {
     name: 'Básico',
-    price: '100',
+    price: '99',
     features: [
       'Chatbot básico',
       'Soporte 8/5',
@@ -13,7 +13,7 @@ const plans = [
   },
   {
     name: 'Profesional',
-    price: '300',
+    price: '299',
     features: [
       'Chatbot avanzado con IA',
       'Soporte 24/7',
@@ -24,7 +24,7 @@ const plans = [
   },
   {
     name: 'Empresarial',
-    price: '1500',
+    price: '1499',
     features: [
       'Chatbot con IA avanzada',
       'Agente virtual personalizado',

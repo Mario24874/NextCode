@@ -1,80 +1,73 @@
-import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import React, { useEffect } from 'react';
 
-interface ChatbotProps {
-  onClose: () => void;
+declare global {
+  interface Window {
+    AgentInitializer?: {
+      init: (config: {
+        agentRenderURL: string;
+        rootId: string;
+        formID: string;
+        queryParams: string[];
+        domain: string;
+        isDraggable: boolean;
+        background: string;
+        buttonBackgroundColor: string;
+        buttonIconColor: string;
+        variant: boolean;
+        customizations: Record<string, string>;
+        isVoice?: boolean;
+      }) => void;
+    };
+  }
 }
 
-const Chatbot: React.FC<ChatbotProps> = ({ onClose }) => {
-  const [messages, setMessages] = useState<Array<{ text: string; isBot: boolean }>>([
-    { text: '¡Hola! Soy el asistente virtual de NextCode Solutions. ¿En qué puedo ayudarte?', isBot: true }
-  ]);
-  const [input, setInput] = useState('');
+const Chatbot: React.FC = () => {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jotfor.ms/s/umd/latest/for-embedded-agent.js';
+    script.async = true;
+    document.body.appendChild(script);
 
-  const handleSend = async () => {
-    if (!input.trim()) return;
+    script.onload = () => {
+      if (window.AgentInitializer) {
+        window.AgentInitializer.init({
+          agentRenderURL: 'https://agent.jotform.com/0195cab916b372fdb3e6b54a164bada236d2',
+          rootId: 'JotformAgent-0195cab916b372fdb3e6b54a164bada236d2',
+          formID: '0195cab916b372fdb3e6b54a164bada236d2',
+          queryParams: ['skipWelcome=1', 'maximizable=1'],
+          domain: 'https://www.jotform.com',
+          isDraggable: false,
+          background: 'linear-gradient(180deg, #0F53B4 0%, #0F53B4 100%)',
+          buttonBackgroundColor: '#246506',
+          buttonIconColor: '#FFFFFF',
+          variant: false,
+          customizations: {
+            greeting: 'Yes',
+            greetingMessage: 'Hola, soy Bárbara, ¿cómo puedo ayudarle?',
+            openByDefault: 'No',
+            pulse: 'Yes',
+            position: 'left',
+            autoOpenChatIn: '0',
+            showHistory: 'No', // Intentar ocultar historial
+            showBranding: 'No' // Intentar ocultar branding
+          },
+          isVoice: undefined
+        });
+      }
+    };
 
-    // Add user message
-    setMessages(prev => [...prev, { text: input, isBot: false }]);
-
-    // Simulate bot response (replace with actual AI integration)
-    setTimeout(() => {
-      setMessages(prev => [...prev, {
-        text: 'Gracias por tu mensaje. Un representante se pondrá en contacto contigo pronto.',
-        isBot: true
-      }]);
-    }, 1000);
-
-    setInput('');
-  };
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
 
   return (
-    <div className="h-[500px] flex flex-col">
-      <div className="bg-indigo-600 p-4 rounded-t-lg flex justify-between items-center">
-        <h3 className="text-white font-semibold">Chat con NextCode</h3>
-        <button onClick={onClose} className="text-white hover:text-gray-200">
-          <X size={20} />
-        </button>
-      </div>
-      
-      <div className="flex-1 p-4 overflow-y-auto bg-white">
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`mb-4 ${msg.isBot ? 'text-left' : 'text-right'}`}
-          >
-            <div
-              className={`inline-block p-3 rounded-lg ${
-                msg.isBot
-                  ? 'bg-gray-100 text-gray-800'
-                  : 'bg-indigo-600 text-white'
-              }`}
-            >
-              {msg.text}
-            </div>
-          </div>
-        ))}
-      </div>
-      
-      <div className="p-4 border-t">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="Escribe tu mensaje..."
-            className="flex-1 p-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-          />
-          <button
-            onClick={handleSend}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
-          >
-            Enviar
-          </button>
-        </div>
-      </div>
-    </div>
+    <div
+      id="JotformAgent-0195cab916b372fdb3e6b54a164bada236d2"
+      className="fixed bottom-10 left-10"
+    />
   );
 };
 
