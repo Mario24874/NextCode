@@ -48,10 +48,10 @@ const Chatbot: React.FC = () => {
             pulse: 'Yes',
             position: 'left',
             autoOpenChatIn: '0',
-            showHistory: 'No', // Intentar ocultar historial
-            showBranding: 'No' // Intentar ocultar branding
+            showHistory: 'No',
+            showBranding: 'No',
           },
-          isVoice: undefined
+          isVoice: undefined,
         });
       }
     };
@@ -66,7 +66,7 @@ const Chatbot: React.FC = () => {
   return (
     <div
       id="JotformAgent-0195cab916b372fdb3e6b54a164bada236d2"
-      className="fixed bottom-10 left-10"
+      className="fixed bottom-10 left-10 z-40"
     />
   );
 };

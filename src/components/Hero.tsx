@@ -1,5 +1,6 @@
 import { Brain, ChevronDown } from 'lucide-react';
-import { Link } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -16,21 +17,27 @@ const Hero = () => {
           aplicaciones, automatizaciones con IA, chatbots y asistentes virtuales.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <button className="bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors">
-            Comenzar Ahora
-          </button>
-          <button className="bg-white text-indigo-600 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors">
-            Conoce Más
-          </button>
+          <RouterLink
+            to="/chats"
+            className="bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors"
+          >
+            Prueba los Chats
+          </RouterLink>
+          <RouterLink
+            to="/agents"
+            className="bg-white text-indigo-600 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors"
+          >
+            Prueba los Agentes
+          </RouterLink>
         </div>
-        <Link
+        <ScrollLink
           to="services"
           smooth={true}
           duration={500}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer animate-bounce"
         >
           <ChevronDown className="h-8 w-8 text-white" />
-        </Link>
+        </ScrollLink>
       </div>
     </div>
   );
